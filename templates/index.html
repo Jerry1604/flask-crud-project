@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EROs supermarket</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        margin: 0;
+        padding: 30px;
+      }
+
+    
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 25px;
+      }
+
+    
+      table {
+        width: 80%;
+        margin: auto;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      th {
+        background: #4f46e5;
+        color: white;
+        padding: 12px;
+      }
+
+      td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+      }
+
+      tr:hover {
+        background: #f1f5ff;
+        transition: 0.3s;
+      }
+
+      button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+    
+      .update-btn {
+        background: #3b82f6;
+        color: white;
+      }
+
+      .update-btn:hover {
+        background: #2563eb;
+      }
+
+      .delete-btn {
+        background: #ef4444;
+        color: white;
+      }
+
+      .delete-btn:hover {
+        background: #dc2626;
+      }
+
+ 
+      form {
+        width: 300px;
+        margin: 30px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+      }
+
+      form button {
+        width: 100%;
+        background: #10b981;
+        color: white;
+      }
+
+      form button:hover {
+        background: #059669;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="color: blueviolet; text-align: center">EROs supermarket</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>name</th>
+          <th>age</th>
+          <th>email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for row in data %}
+        <tr>
+          <td>{{row[0]}}</td>
+          <td>{{row[1]}}</td>
+          <td>{{row[2]}}</td>
+          <td>{{row[3]}}</td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+    <h2>Add customer</h2>
+    <form action="/create" method="post">
+      <input name="name" type="text" placeholder="type your name" />
+      <input name="age" type="text" placeholder="type your age" />
+      <input name="email" type="email" placeholder="type your email" />
+      <input type="submit" value="create" />
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>age</th>
+          <th>email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          <td>
+            <form action="/update" method="post">
+              <label>{{row[0]}}</label>
+              <input type="hidden" name="id" value="{{row[0]}}" />
+              <input
+                name="name"
+                type="text"
+                placeholder="type your name"
+                value="{{row[1]}}"
+              />
+              <input
+                name="age"
+                type="text"
+                placeholder="type your age"
+                value="{{row[2]}}"
+              />
+              <input
+                name="email"
+                type="email"
+                placeholder="type your email"
+                value="{{row[3]}}"
+              />
+              <input type="submit" value="update" />
+            </form>
+          </td>
+          <td>
+            <form action="/delete" method="post">
+              <input type="hidden" name="id" value="{{row[0]}}" />
+              <input type="submit" value="delete" />
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
